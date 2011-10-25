@@ -27,17 +27,13 @@ is(
     ' get_service_url()'
 );
 
-my $atd_bogus =
-  Lingua::AtD->new( { host => 'some.bogus.host', port => 200200 } );
+my $atd_bogus = Lingua::AtD->new( { host => '500.500.500', port => 200200 } );
 isa_ok( $atd_bogus, 'Lingua::AtD' );
-is( $atd_bogus->get_service_host,
-    'some.bogus.host', ' get_service_host() [bogus]' );
+is( $atd_bogus->get_service_host, '500.500.500',
+    ' get_service_host() [bogus]' );
 is( $atd_bogus->get_service_port, 200200, ' get_service_port() [bogus]' );
-is(
-    $atd_bogus->get_service_url,
-    'http://some.bogus.host:200200/',
-    ' get_service_url() [bogus]'
-);
+is( $atd_bogus->get_service_url, 'http://500.500.500:200200/',
+    ' get_service_url() [bogus]' );
 throws_ok( sub { $atd_bogus->stats('should throw an exception') },
     'Lingua::AtD::HTTPException', 'HTTP Exception thrown' );
 my $atd_exception = Exception::Class->caught('Lingua::AtD::HTTPException');
@@ -49,12 +45,12 @@ is(
 );
 is(
     $atd_exception->http_status,
-    "500 Can't connect to some.bogus.host:200200 (Bad hostname)",
+    "500 Can't connect to 500.500.500:200200 (Bad hostname)",
     'http_status() [exception]'
 );
 is(
     $atd_exception->service_url,
-    'http://some.bogus.host:200200/stats',
+    'http://500.500.500:200200/stats',
     'service_url() [exception]'
 );
 

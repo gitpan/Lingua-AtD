@@ -49,7 +49,7 @@
          "web" : "https://github.com/davidlday/Lingua-AtD"
       }
    },
-   "version" : "1.112970",
+   "version" : "1.112980",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.17",

@@ -8,14 +8,14 @@
 #
 package Lingua::AtD::Metric;
 {
-  $Lingua::AtD::Metric::VERSION = '1.112970';
+  $Lingua::AtD::Metric::VERSION = '1.112980';
 }
 use strict;
 use warnings;
 use Carp;
 use Class::Std;
 
-# ABSTRACT: Encapsulates the Metrics contained in Scores.
+# ABSTRACT: Encapsulates the grammar/spelling/style/statistical Metrics contained in Scores.
 
 {
 
@@ -33,11 +33,11 @@ use Class::Std;
 
 =head1 NAME
 
-Lingua::AtD::Metric - Encapsulates the Metrics contained in Scores.
+Lingua::AtD::Metric - Encapsulates the grammar/spelling/style/statistical Metrics contained in Scores.
 
 =head1 VERSION
 
-version 1.112970
+version 1.112980
 
 =head1 SYNOPSIS
 
@@ -77,9 +77,33 @@ version 1.112970
 
 =head1 DESCRIPTION
 
-<description>
+Encapsulates the grammar/spelling/style/statistical Metrics contained in Scores.
 
 =head1 METHODS
+
+=head2 get_type
+
+    $atd_metric->get_type();
+
+Returns a string indicating the type of metric. One of I<grammar>, I<spell>, I<style>, or I<stats>.
+
+=head2 get_key
+
+    $atd_metric->get_key();
+
+Returns a string indicating the metric key. From the L<API Documentation|http://www.afterthedeadline.com/api.slp>: I<The type is a category to add some organization to the information.>
+
+=head2 get_value
+
+    $atd_metric-The type is a category to add some organization to the information.>get_value();
+
+Returns the numeric value of the metric.
+
+=head1 METHODS
+
+=head1 SEE ALSO
+
+See the L<API Documentation|http://www.afterthedeadline.com/api.slp> at After the Deadline's website.
 
 =head1 AUTHOR
 

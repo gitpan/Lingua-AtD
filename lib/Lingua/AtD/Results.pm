@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Results;
 {
-  $Lingua::AtD::Results::VERSION = '1.112970';
+  $Lingua::AtD::Results::VERSION = '1.112980';
 }
 use strict;
 use warnings;
@@ -99,7 +99,7 @@ Lingua::AtD::Results - Encapsulate conversion of XML from /checkDocument or /che
 
 =head1 VERSION
 
-version 1.112970
+version 1.112980
 
 =head1 SYNOPSIS
 
@@ -153,7 +153,7 @@ Encapsulates conversion of the XML response from the AtD server into a list of s
 
 Lingua::AtD::Results objects should only ever be created from method calls to L<Lingua::AtD>. However, if you have saved XML responses from prior calls to AtD, you can use this object to convert those responses into PERL objects. I won't stop you.
 
-See the L<DESCRIPTION> for typical usage.
+See the L<SYNOPSIS> for typical usage.
 
 =head2 has_server_exception
 

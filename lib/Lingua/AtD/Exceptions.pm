@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Exceptions;
 {
-  $Lingua::AtD::Exceptions::VERSION = '1.112970';
+  $Lingua::AtD::Exceptions::VERSION = '1.112980';
 }
 use Exception::Class (
     Lingua::AtD::URLException => {
@@ -38,7 +38,7 @@ Lingua::AtD::Exceptions - Exception classes for Lingua::AtD
 
 =head1 VERSION
 
-version 1.112970
+version 1.112980
 
 =head1 AUTHOR
 
