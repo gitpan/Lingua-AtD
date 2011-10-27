@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Error;
 {
-  $Lingua::AtD::Error::VERSION = '1.112980';
+  $Lingua::AtD::Error::VERSION = '1.113000';
 }
 use strict;
 use warnings;
@@ -72,7 +72,7 @@ Lingua::AtD::Error - Encapsulates the grammar/spelling/style Errors contained in
 
 =head1 VERSION
 
-version 1.112980
+version 1.113000
 
 =head1 SYNOPSIS
 

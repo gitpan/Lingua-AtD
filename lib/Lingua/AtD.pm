@@ -8,7 +8,7 @@
 #
 package Lingua::AtD;
 {
-  $Lingua::AtD::VERSION = '1.112980';
+  $Lingua::AtD::VERSION = '1.113000';
 }
 use strict;
 use warnings;
@@ -101,7 +101,7 @@ Lingua::AtD - Provides an OO wrapper for After the Deadline grammar and spelling
 
 =head1 VERSION
 
-version 1.112980
+version 1.113000
 
 =head1 SYNOPSIS
 

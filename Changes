@@ -1,5 +1,9 @@
 Revision history for Lingua-AtD
 
+1.113000  2011-10-26 20:12:33 EST
+    * More corrections to 01-sanity-atd.t to prevent false failures
+      while testing for LWP exceptions.
+
 1.112980  2011-10-25 12:18:11 EST
     * Finished and corrected documentation.
     * Updated 01-sanity-atd.t to use 500.500.500 as hostname. Prevents

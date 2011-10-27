@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Scores;
 {
-  $Lingua::AtD::Scores::VERSION = '1.112980';
+  $Lingua::AtD::Scores::VERSION = '1.113000';
 }
 use strict;
 use warnings;
@@ -85,7 +85,7 @@ Lingua::AtD::Scores - Encapsulate conversion of XML from /stats call to Metric o
 
 =head1 VERSION
 
-version 1.112980
+version 1.113000
 
 =head1 SYNOPSIS
 

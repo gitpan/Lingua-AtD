@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Results;
 {
-  $Lingua::AtD::Results::VERSION = '1.112980';
+  $Lingua::AtD::Results::VERSION = '1.113000';
 }
 use strict;
 use warnings;
@@ -99,7 +99,7 @@ Lingua::AtD::Results - Encapsulate conversion of XML from /checkDocument or /che
 
 =head1 VERSION
 
-version 1.112980
+version 1.113000
 
 =head1 SYNOPSIS
 

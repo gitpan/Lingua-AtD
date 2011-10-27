@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Metric;
 {
-  $Lingua::AtD::Metric::VERSION = '1.112980';
+  $Lingua::AtD::Metric::VERSION = '1.113000';
 }
 use strict;
 use warnings;
@@ -37,7 +37,7 @@ Lingua::AtD::Metric - Encapsulates the grammar/spelling/style/statistical Metric
 
 =head1 VERSION
 
-version 1.112980
+version 1.113000
 
 =head1 SYNOPSIS
 
