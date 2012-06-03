@@ -1,127 +1,3 @@
-#
-# This file is part of Lingua-AtD
-#
-# This software is copyright (c) 2011 by David L. Day.
-#
-# This is free software; you can redistribute it and/or modify it under
-# the same terms as the Perl 5 programming language system itself.
-#
-package Lingua::AtD;
-{
-  $Lingua::AtD::VERSION = '1.121550';
-}
-use strict;
-use warnings;
-use Carp;
-use Class::Std;
-use LWP::UserAgent;
-use Lingua::AtD::Results;
-use Lingua::AtD::Scores;
-
-#use Lingua::AtD::Exceptions;
-use URI;
-
-# ABSTRACT: Provides an OO wrapper for After the Deadline grammar and spelling service.
-
-{
-
-    # Attributes
-    my %api_key_of :
-      ATTR( :init_arg<api_key> :get<api_key> :default<'Lingua-AtD'> );
-    my %throttle_of :
-      ATTR( :init_arg<throttle> :get<throttle> :set<throttle> :default<1> );
-    my %last_call_of : ATTR( :get<last_call> :default<0> );
-    my %service_host_of :
-      ATTR( :init_arg<host>    :get<service_host> :default<'service.afterthedeadline.com'> );
-    my %service_port_of :
-      ATTR( :init_arg<port>    :get<service_port> :default<80> );
-    my %service_url_of : ATTR( :get<service_url> );
-
-    sub START {
-        my ( $self, $ident, $arg_ref ) = @_;
-
-        # Construct the URL
-        $service_url_of{$ident} =
-            'http://'
-          . $service_host_of{$ident} . ':'
-          . $service_port_of{$ident} . '/';
-
-        # Generate API Key
-        my $rand_hex = join "", map { unpack "H*", chr( rand(256) ) } 1 .. 16;
-        $api_key_of{$ident} = "Lingua-AtD-$rand_hex";
-
-        return;
-    }
-
-    sub _atd : PRIVATE {
-        my ( $self, $verb, $arg_ref ) = @_;
-        my $ident = ident($self);
-        my $url   = $service_url_of{$ident} . $verb;
-        my $ua    = LWP::UserAgent->new();
-        $ua->agent( 'Lingua::AtD/' . $Lingua::AtD::VERSION );
-
-        # Throttle Calls. AtD throws a 503 if called too quickly.
-        my $remaining = $throttle_of{$ident} - ( time - $last_call_of{$ident} );
-        sleep($remaining) if ( $remaining > 0 );
-
-        my $response = $ua->post( $url, Content => [ %{$arg_ref} ] );
-
-        $last_call_of{$ident} = time;
-
-        if ( $response->is_error() ) {
-
-            # TODO: Implement Exceptions
-            my $msg = "'$url' responded with '" . $response->status_line . "'.";
-            croak $msg;
-
-            #            Lingua::AtD::HTTPException->throw(
-            #                http_status => $response->status_line,
-            #                service_url => $url,
-            #            );
-        }
-
-        return $response->content;
-    }
-
-    sub check_document {
-        my ( $self, $text ) = @_;
-        my $ident = ident($self);
-        my $raw_response =
-          $self->_atd( 'checkDocument',
-            { key => $api_key_of{$ident}, data => $text } );
-        return Lingua::AtD::Results->new( { xml => $raw_response } );
-    }
-
-    sub check_grammar {
-        my ( $self, $text ) = @_;
-        my $ident = ident($self);
-        my $raw_response =
-          $self->_atd( 'checkGrammar',
-            { key => $api_key_of{$ident}, data => $text } );
-        return Lingua::AtD::Results->new( { xml => $raw_response } );
-    }
-
-    sub stats {
-        my ( $self, $text ) = @_;
-        my $ident = ident($self);
-        my $raw_response =
-          $self->_atd( 'stats', { key => $api_key_of{$ident}, data => $text } );
-        return Lingua::AtD::Scores->new( { xml => $raw_response } );
-    }
-}
-
-1;    # Magic true value required at end of module
-
-
-=pod
-
-=head1 NAME
-
-Lingua::AtD - Provides an OO wrapper for After the Deadline grammar and spelling service.
-
-=head1 VERSION
-
-version 1.121550
 
 =head1 SYNOPSIS
 
@@ -166,7 +42,9 @@ Lingua::AtD provides an OO-style interface for After the Deadline's grammar and 
 
 =head1 METHODS
 
-=head2 new
+=over 4
+
+=item new
 
 This constructor takes four arguments, all optional. The sample below shows the defaults.
 
@@ -197,43 +75,43 @@ There's no API documentation stating such, but testing has shown that AtD servic
 
 =back
 
-=head2 get_api_key
+=item get_api_key
 
     $atd->get_api_key();
 
 Returns the API Key used to access the AtD service.
 
-=head2 get_host
+=item get_host
 
     $atd->get_host();
 
 Returns the host of the AtD service.
 
-=head2 get_port
+=item get_port
 
     $atd->get_port();
 
 Returns the port of the AtD service.
 
-=head2 get_service_url
+=item get_service_url
 
     $atd->get_service();
 
 Returns a formatted URL for the AtD service.
 
-=head2 get_throttle
+=item get_throttle
 
     $atd->get_throttle();
 
 Returns the number of seconds that must pass between calls to the AtD service.
 
-=head2 set_throttle
+=item set_throttle
 
     $atd->set_throttle(3);
 
 Sets the number of seconds that must pass between calls to the AtD service.
 
-=head2 check_document
+=item check_document
 
     $atd_results = $atd->check_document('Some text stringg in badd nneed of prufreding.');
 
@@ -241,7 +119,7 @@ Invokes the document check service for some string of text and return a L<Lingua
 
 From the L<API Documentation|http://www.afterthedeadline.com/api.slp>: I<Checks a document and returns errors and suggestions>
 
-=head2 check_grammar
+=item check_grammar
 
     $atd_results = $atd->check_grammar('Some text stringg in badd nneed of prufreding.');
 
@@ -249,13 +127,15 @@ Invokes the grammar check service for some string of text and return a L<Lingua:
 
 From the L<API Documentation|http://www.afterthedeadline.com/api.slp>: I<Checks a document (sans spelling) returns errors and suggestions>
 
-=head2 stats
+=item stats
 
     $atd_scores = $atd->stats('Some text stringg in badd nneed of prufreding.');
 
 Invokes the stats service for some string of text and return a L<Lingua::AtD::Scores> object. This differs from I<check_document> in that it only checks grammar and style, not spelling.
 
 From the L<API Documentation|http://www.afterthedeadline.com/api.slp>: I<Returns statistics about the writing quality of a document>
+
+=back
 
 =head1 BUGS
 
@@ -267,26 +147,10 @@ Wouldn't it be kind of funny if I had a ton of spelling/grammar/style errors in 
 
 =head1 SEE ALSO
 
-=for :list * L<Your::Module>
+=for :list
+* L<Your::Module>
 * L<Your::Package>
 
 See the L<API Documentation|http://www.afterthedeadline.com/api.slp> at After the Deadline's website.
 
 B<NB:> In the L<API Documentation|http://www.afterthedeadline.com/api.slp>, there is a fourth service called B</info.slp>. I do not plan to implement this. Each Lingua::AtD::Error supplies an informative URL when one is available. I see no reason to call this independently, but feel free to submit a patch if you find a reason.
-
-=head1 AUTHOR
-
-David L. Day <dday376@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by David L. Day.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut
-
-
-__END__
-

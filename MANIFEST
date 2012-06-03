@@ -6,6 +6,7 @@ META.json
 META.yml
 Makefile.PL
 README
+README.pod
 dist.ini
 lib/Lingua/AtD.pm
 lib/Lingua/AtD/Error.pm
@@ -18,5 +19,6 @@ t/000-report-versions-tiny.t
 t/01-sanity-atd.t
 t/01-sanity-results.t
 t/01-sanity-scores.t
+t/02-network-atd.t
 t/release-check-manifest.t
 t/release-minimum-version.t
