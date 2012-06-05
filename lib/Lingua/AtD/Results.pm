@@ -8,7 +8,7 @@
 #
 package Lingua::AtD::Results;
 {
-  $Lingua::AtD::Results::VERSION = '1.121550';
+  $Lingua::AtD::Results::VERSION = '1.121570';
 }
 use strict;
 use warnings;
@@ -107,7 +107,7 @@ Lingua::AtD::Results - Encapsulate conversion of XML from /checkDocument or /che
 
 =head1 VERSION
 
-version 1.121550
+version 1.121570
 
 =head1 SYNOPSIS
 
@@ -117,6 +117,7 @@ version 1.121550
     my $atd = Lingua::AtD->new( {
         host => 'service.afterthedeadline.com',
         port => 80
+        throttle => 2,
     });
 
     # Run spelling and grammar checks. Returns a Lingua::AtD::Response object.

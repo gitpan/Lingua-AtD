@@ -28,7 +28,7 @@ requires:
 resources:
   homepage: https://github.com/davidlday/Lingua-AtD
   repository: https://github.com/davidlday/Lingua-AtD.git
-version: 1.121550
+version: 1.121570
 x_BuiltWith:
   modules:
     Carp: 1.25
